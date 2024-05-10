@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
 function Directors() {
-  const [directors, setDirectors] = useState([])
-
-  useEffect(() =>{
+  const [directors, setDirectors] = useState([]);
+  useEffect(() => {
     fetch("http://localhost:4000/directors")
-    .then(response => response.json())
-    .then(data => setDirectors(data))
-  }, [])
+      .then((r) => r.json())
+      .then((data) => setDirectors(data));
+  }, []);
+  const directorData = directors.map((director) => director);
+  console.log(directorData);
+
   return (
     <>
       <header>
-        {/* What component should go here? */}
-        <Link to="/">Home</Link>
-        <h1>Directors Page</h1>
+        <NavBar />
       </header>
       <main>
-        {/* Director info here! */}
-        {directors.map(director => (
+        <h1>Directors Page</h1>
+        {directors.map((director) => (
           <article key={director.id}>
             <h2>{director.name}</h2>
             <ul>
-              {director.movies.map(movieTitle => (
-                <li key={movieTitle}>{movieTitle}</li>
+              {director.movies.map((movie, index) => (
+                <li key={index}>{movie}</li>
               ))}
             </ul>
           </article>
@@ -31,6 +31,6 @@ function Directors() {
       </main>
     </>
   );
-};
+}
 
 export default Directors;

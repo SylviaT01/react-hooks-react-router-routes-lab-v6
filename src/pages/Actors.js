@@ -1,24 +1,22 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import NavBar from "../components/NavBar";
 
 function Actors() {
-  const [actors, setActors]= useState([])
-
-  useEffect(() =>{
+  const [actors, setActors] = useState([]);
+  useEffect(() => {
     fetch("http://localhost:4000/actors")
-    .then(response => response.json())
-    .then(data =>setActors(data))
-  }, [])
+      .then((r) => r.json())
+      .then((data) => setActors(data));
+  }, []);
+  console.log(actors);
   return (
     <>
       <header>
-      <Link to="/">Home</Link>
-        {/* What component should go here? */}
-        <h1>Actors Page</h1>
+        <NavBar />
       </header>
       <main>
-        {/* Actor info here! */}
-        {actors.map(actor => (
+        <h1>Actors Page</h1>
+        {actors.map((actor) => (
           <article key={actor.id}>
             <h2>{actor.name}</h2>
             <ul>
@@ -31,6 +29,6 @@ function Actors() {
       </main>
     </>
   );
-};
+}
 
 export default Actors;

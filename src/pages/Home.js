@@ -3,31 +3,26 @@ import MovieCard from "../components/MovieCard";
 import NavBar from "../components/NavBar";
 
 function Home() {
-  const [movies, setMovies] = useState([])
-
+  const [data, setData] = useState([]);
   useEffect(() => {
     fetch("http://localhost:4000/movies")
-    .then(response => response.json())
-    .then(data => setMovies(data))
-    .catch(error => console.error(error));
-  }, [])
-  const movieList = movies.map(movie =>{
-    return <MovieCard key={movie.id} movie={movie}/>
-  });
-
+      .then((r) => r.json())
+      .then((data) => setData(data));
+  }, []);
+  console.log(data);
   return (
     <>
       <header>
-        {/* What component should go here? */}
         <NavBar />
       </header>
       <main>
-        {/* Info goes here! */}
         <h1>Home Page</h1>
-        {movieList}
+        {data.map((items) => (
+          <MovieCard key={items.id} title={items.title} id={items.id} />
+        ))}
       </main>
     </>
   );
-};
+}
 
 export default Home;
